@@ -1,0 +1,118 @@
+// 1.在main.js中使用全局样式
+body,
+html {
+  font-family: 'PingFang-SC-Medium', 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  width: 100%;
+  height: 100%;
+  // background: purple;
+}
+
+// 2.清除浮动-用在父亲元素中
+.clearfix:after {
+  /*伪元素是行内元素 正常浏览器清除浮动方法*/
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.clearfix {
+  *zoom: 1; /*ie6清除浮动的方式 *号只有IE6-IE7执行，其他浏览器不执行*/
+}
+
+// 3.显示文本显示在一行
+.text-ono-line {
+  white-space: nowrap; /* 不换行 */
+  overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+  text-overflow: ellipsis; /*溢出时显示省略标记...；需与overflow:hidden;一起使用*/
+}
+
+// 4.显示文本显示2行文本（建议使用js来实现）
+.text-tow-line {
+  overflow: hidden;
+
+  -webkit-line-clamp: 2; // 限制在一个块元素显示的文本的2行, 需结合：下面两个属性
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.text-third-line {
+  overflow: hidden;
+
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+/*
+页头title样式
+*/
+.page-title-text {
+  font-size: 18px;
+  font-family: PingFang-SC-Bold, PingFang-SC;
+  font-weight: bold;
+  color: #3b5471;
+  cursor: default;
+}
+/*
+行头title样式
+*/
+.row-title-text {
+  font-size: 18px;
+  font-family: PingFang-SC-Bold, PingFang-SC;
+  font-weight: bold;
+  color: #3b5471;
+  cursor: default;
+}
+
+/*
+通用原生表格样式
+*/
+.table-style {
+  width: 100%;
+  th,
+  td {
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid;
+    border-color: rgb(232, 232, 232) !important;
+    width: 100px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    color: #333;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  thead {
+    th {
+      background: rgb(245, 245, 249) !important;
+      padding-top: 15px;
+      padding-bottom: 15px;
+      box-sizing: border-box;
+    }
+  }
+
+  tbody {
+    background: #fff;
+    tr {
+      &:hover {
+        background: rgb(240, 248, 255);
+      }
+    }
+    th,
+    td {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      box-sizing: border-box;
+    }
+  }
+}
+
+.row-line {
+  width: 100%;
+  height: 1px;
+  background: #eee;
+  margin-top: 20px;
+}

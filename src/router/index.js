@@ -1,23 +1,41 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
-
+const routerList = {
+  path: "/main",
+  name: "Main",
+  component: () => import("../views/Layout"),
+  children: [
+    {
+      path: "/home",
+      name: "Home",
+      component: () => import("../views/Home")
+    },
+    {
+      path: "/aboutOne",
+      name: "AboutOne",
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () =>
+        import(/* webpackChunkName: "about" */ "../views/About/AboutOne")
+    }
+  ]
+};
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home
+    redirect: "/home"
   },
+  routerList,
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    path: "*",
+    name: "nofind",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import(
+        /** 捕获所有路由或 404 Not found 路由,应该放在最后 */ "../views/NoFind"
+      )
   }
 ];
 
