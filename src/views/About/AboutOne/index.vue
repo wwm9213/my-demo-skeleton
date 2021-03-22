@@ -7,7 +7,7 @@
       <a class="name">消息</a>
       <a-icon class="setting" type="setting" @click="showDrawer" />
     </div>
-    <div 
+    <div
       class="message-area"
       ref="messageArea"
       :style="{ background: messageAreaFlag ? '#fff' : '#f5f5f5' }"
