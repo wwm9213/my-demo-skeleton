@@ -46,8 +46,20 @@
         @blur="isFocus = false"
       />
       <div class="options">
-        <a-button @click="clearInput">清空消息</a-button>
-        <a-button type="primary" @click="send">发送</a-button>
+        <a-button-group>
+          <a-button @click="clearInput">清空消息</a-button>
+          <a-tooltip
+            placement="topRight"
+            :visible="tooltipFlag"
+            trigger="click"
+            overlayClassName="wrap-tooltip"
+          >
+            <template slot="title">
+              <span>不能发送空白消息</span>
+            </template>
+            <a-button type="primary" @click="send">发送</a-button>
+          </a-tooltip>
+        </a-button-group>
       </div>
     </div>
 
@@ -75,7 +87,9 @@ export default {
       visible: false,
       isMark: true,
       isEmpty: false,
-      messageAreaFlag: false
+      messageAreaFlag: false,
+      tooltipFlag: false,
+      timer: null
     };
   },
   watch: {
@@ -87,9 +101,8 @@ export default {
     setTimeout(() => {
       this.isMark = false;
       this.getFocus();
-      let messageInfo = window.localStorage.getItem("messageInfo");
-      messageInfo = eval("(" + messageInfo + ")");
-      this.arr = messageInfo || [];
+      const messageInfo = window.localStorage.getItem("messageInfo");
+      this.arr = JSON.parse(messageInfo) || [];
       this.back();
     }, 500);
   },
@@ -106,14 +119,22 @@ export default {
 
     send() {
       this.getFocus();
-      if (!this.input) return;
+      if (!this.input) {
+        if (this.timer) {
+          this.tooltipFlag = true;
+          clearTimeout(this.timer);
+        }
+        this.timer = setTimeout(() => {
+          this.tooltipFlag = false;
+        }, 1500);
+        return;
+      }
       this.arr.push({
         msg: this.input,
         date: moment().format("YYYY-MM-DD HH:mm:ss")
       });
       window.localStorage.setItem("messageInfo", JSON.stringify(this.arr));
       this.input = "";
-
       this.back();
     },
 
@@ -169,7 +190,6 @@ export default {
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  box-shadow: 3px 3px 3px 3px #eee;
 
   .mark {
     width: 100%;
@@ -207,6 +227,7 @@ export default {
   .message-area {
     flex: 1;
     width: 100%;
+    // background: #f5f5f5;
     overflow-y: auto;
     padding: 20px;
     box-sizing: border-box;
@@ -271,7 +292,7 @@ export default {
       width: 100%;
       display: flex;
       justify-content: flex-end;
-      padding-right: 20px;
+      padding-right: 10px;
       box-sizing: border-box;
     }
   }
@@ -286,6 +307,18 @@ export default {
     border: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
+  }
+}
+.wrap-tooltip {
+  .ant-tooltip-content {
+    .ant-tooltip-arrow::before {
+      background: #fff !important;
+    }
+    .ant-tooltip-inner {
+      background: #fff !important;
+      color: #000;
+      cursor: default;
+    }
   }
 }
 </style>
