@@ -9,8 +9,8 @@ export default [
     icon: "",
     children: [
       {
-        path: "/aboutOne",
-        name: "更多1",
+        path: "/ChatRoom",
+        name: "聊天室",
         icon: ""
       }
     ]

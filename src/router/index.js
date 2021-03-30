@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
+import { storage } from "@/utils";
 Vue.use(VueRouter);
 const routerList = {
   path: "/main",
@@ -13,13 +13,10 @@ const routerList = {
       component: () => import("../views/Home")
     },
     {
-      path: "/aboutOne",
-      name: "AboutOne",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
+      path: "/ChatRoom",
+      name: "ChatRoom",
       component: () =>
-        import(/* webpackChunkName: "about" */ "../views/About/AboutOne")
+        import(/* webpackChunkName: "about" */ "../views/About/ChatRoom")
     }
   ]
 };
@@ -28,7 +25,13 @@ const routes = [
     path: "/",
     redirect: "/home"
   },
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import(/* webpackChunkName: "Login" */ "../views/Login")
+  },
   routerList,
+
   {
     path: "*",
     name: "nofind",
@@ -43,6 +46,20 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  const token = storage.get();
+
+  if (to.path !== "/login") {
+    if (!token) {
+      next("/login");
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

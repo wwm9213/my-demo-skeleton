@@ -8,6 +8,7 @@
       <a-col :span="12" style="text-align:right">
         <a-dropdown placement="bottomCenter">
           <a class="ant-dropdown-link" @click="e => e.preventDefault()">
+            <span style="margin-right:10px">{{ userName }}</span>
             <a-avatar shape="square" icon="user" />
           </a>
           <a-menu slot="overlay">
@@ -15,7 +16,7 @@
               <a href="javascript:;">个人信息</a>
             </a-menu-item>
             <a-menu-item>
-              <a href="javascript:;">退出登录</a>
+              <a href="javascript:;" @click="exit">退出登录</a>
             </a-menu-item>
           </a-menu>
         </a-dropdown>
@@ -25,15 +26,18 @@
 </template>
 <script>
 import moment from "moment";
+import { storage } from "@/utils";
 export default {
   data() {
     return {
       timer: null,
-      date: moment().format("YYYY-MM-DD HH:mm:ss")
+      date: moment().format("YYYY-MM-DD HH:mm:ss"),
+      userName: ""
     };
   },
   created() {
     this.getDate();
+    this.userName = storage.get().userName;
   },
   methods: {
     getDate() {
@@ -41,6 +45,18 @@ export default {
         setInterval(() => {
           this.date = moment().format("YYYY-MM-DD HH:mm:ss");
         }, 1000);
+      });
+    },
+    exit() {
+      const _this = this;
+      this.$confirm({
+        title: "提示",
+        content: "确定退出吗？",
+        onOk() {
+          storage.del().then(res => {
+            res && _this.$router.push("/login");
+          });
+        }
       });
     }
   }
