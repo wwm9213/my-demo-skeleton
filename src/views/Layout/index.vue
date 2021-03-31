@@ -17,8 +17,8 @@
         </a-layout-header>
         <a-layout-content
           :style="{
-            margin: '24px 16px',
-            padding: '24px',
+            margin: '20px 15px',
+            padding: '20px',
             background: '#fff',
             minHeight: '280px'
           }"
