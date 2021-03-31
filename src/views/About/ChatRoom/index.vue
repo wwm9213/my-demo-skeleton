@@ -260,7 +260,7 @@ export default {
     }
   },
 
-  destroyed() {
+  beforeRouteLeave(to, from, next) {
     const msgInfo = {
       msg: `${storage.get().userName}离开了房间`,
       date: moment().format("HH:mm:ss"),
@@ -269,6 +269,8 @@ export default {
       type: TYPE.TYPE_LEAVE
     };
     this.ws.send(JSON.stringify(msgInfo));
+
+    next();
   }
 };
 </script>
