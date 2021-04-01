@@ -2,13 +2,17 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-
 import Antd, { message } from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
-Vue.use(Antd);
+import "@/styles/global.scss";
+
+import Directives from "./directive";
+
 Vue.prototype.$message = message;
 Vue.config.productionTip = false;
-import "@/styles/global.scss";
+
+Vue.use(Directives);
+Vue.use(Antd);
 new Vue({
   router,
   store,

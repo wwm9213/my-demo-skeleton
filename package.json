@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "socket": "nodemon ./src/socket/index.js",
-    "start": "npm-run-all --serial serve socket",
+    "start": "npm-run-all --parallel serve socket",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -39,9 +39,9 @@
     "ws": "^7.4.4"
   },
   "eslintConfig": {
-    "root": true,
+    "root": false,
     "env": {
-      "node": true
+      "node": false
     },
     "extends": [
       "plugin:vue/essential",

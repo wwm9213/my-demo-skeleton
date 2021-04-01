@@ -12,6 +12,11 @@ export default [
         path: "/ChatRoom",
         name: "聊天室",
         icon: ""
+      },
+      {
+        path: "/directive",
+        name: "自定义指令",
+        icon: ""
       }
     ]
   }

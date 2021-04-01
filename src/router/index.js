@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import { storage } from "@/utils";
 Vue.use(VueRouter);
+
 const routerList = {
   path: "/main",
   name: "Main",
@@ -13,13 +14,20 @@ const routerList = {
       component: () => import("../views/Home")
     },
     {
-      path: "/ChatRoom",
+      path: "/chatRoom",
       name: "ChatRoom",
       component: () =>
         import(/* webpackChunkName: "about" */ "../views/About/ChatRoom")
+    },
+    {
+      path: "/directive",
+      name: "Directive",
+      component: () =>
+        import(/* webpackChunkName: "about" */ "../views/About/Directive")
     }
   ]
 };
+
 const routes = [
   {
     path: "/",

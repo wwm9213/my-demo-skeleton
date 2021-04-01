@@ -42,6 +42,5 @@ function getPeopleNum(arr) {
       numArr.push(obj[key]);
     }
   }
-  console.log(numArr.length);
   return numArr.length;
 }
