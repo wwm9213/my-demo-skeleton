@@ -22,6 +22,10 @@
             background: '#fff',
             minHeight: '280px'
           }"
+          v-waterMarker="{
+            text: '王清桓',
+            textColor: 'rgba(180, 180, 180, 0.4)'
+          }"
         >
           <router-view />
         </a-layout-content>
