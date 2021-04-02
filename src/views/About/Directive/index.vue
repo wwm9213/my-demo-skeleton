@@ -1,7 +1,7 @@
 <template>
   <!-- 自定义指令 -->
   <div class="directive">
-    <a-button v-copy="message">复制文本</a-button>
+    <a-button v-copy:[message]="copyFn">复制文本</a-button>
     <a-button v-longpress:[500]="longpress">长按</a-button>
     <a-button v-debounce:[500]="debounceClick">防抖</a-button>
   </div>
@@ -11,8 +11,7 @@ export default {
   name: "directive",
   data() {
     return {
-      message: "hello world",
-      arr: [1, 2, 3]
+      message: "hello world"
     };
   },
   created() {},
@@ -22,6 +21,13 @@ export default {
     },
     debounceClick() {
       console.log("只触发一次");
+    },
+    copyFn(el) {
+      if (el.id === 0) {
+        this.$message.warning(el.msg);
+      } else {
+        this.$message.success(`${el.msg}, 内容为：${el.text}`);
+      }
     }
   }
 };

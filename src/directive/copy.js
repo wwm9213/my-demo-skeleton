@@ -9,15 +9,37 @@
         4、将 body 中插入的 textarea 移除
         5、在第一次调用时绑定事件，在解绑时移除事件
 
-        使用：给 Dom 加上 v-copy 及复制的文本即可
+        使用1：给 Dom 加上 v-copy:[str]="callback" str: 要复制的文本 callback回调函数 
+        使用2：给 Dom 加上 v-copy:="str" str: 要复制的文本
  */
+
+// 自定义提示内容
+function hint(flag, el, cb) {
+  if (flag) cb(el);
+
+  if (!flag) {
+    if (el.id === 0) {
+      console.log(`${el.msg}`);
+    } else if (el.id === 1) {
+      console.log(`${el.msg}，内容为：${el.text}`);
+    }
+  }
+}
+
 const copy = {
-  bind(el, { value }) {
+  bind(el, { value, arg }) {
+    let fnFlag = false;
     el.$value = value;
+
+    if (value && typeof value === "function") {
+      fnFlag = true;
+      el.$value = arg;
+    }
+
     el.handler = () => {
       if (!el.$value) {
         // 值为空的时候，给出提示。可根据项目UI仔细设计
-        console.log("无复制内容");
+        hint(fnFlag, { id: 0, msg: "无复制内容" }, value);
         return;
       }
       // 动态创建 textarea 标签
@@ -34,7 +56,8 @@ const copy = {
       textarea.select();
       const result = document.execCommand("Copy");
       if (result) {
-        console.log("复制成功"); // 可根据项目UI仔细设计
+        // 可根据项目UI仔细设计
+        hint(fnFlag, { id: 1, msg: "复制成功", text: el.$value }, value);
       }
       document.body.removeChild(textarea);
     };
@@ -42,7 +65,10 @@ const copy = {
     el.addEventListener("click", el.handler);
   },
   // 当传进来的值更新的时候触发
-  componentUpdated(el, { value }) {
+  componentUpdated(el, { value, arg }) {
+    if (value && typeof value === "function") {
+      el.$value = arg;
+    }
     el.$value = value;
   },
   // 指令与元素解绑的时候，移除事件绑定
