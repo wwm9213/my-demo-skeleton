@@ -11,6 +11,8 @@ import Directives from "./directive";
 Vue.prototype.$message = message;
 Vue.config.productionTip = false;
 
+window.onload = () => router.push("/");
+
 Vue.use(Directives);
 Vue.use(Antd);
 new Vue({
