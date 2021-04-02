@@ -16,14 +16,7 @@
 // 自定义提示内容
 function hint(flag, el, cb) {
   if (flag) cb(el);
-
-  if (!flag) {
-    if (el.id === 0) {
-      console.log(`${el.msg}`);
-    } else if (el.id === 1) {
-      console.log(`${el.msg}，内容为：${el.text}`);
-    }
-  }
+  if (!flag) console.log(`${JSON.stringify(el)}`);
 }
 
 const copy = {
