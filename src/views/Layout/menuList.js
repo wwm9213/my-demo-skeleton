@@ -19,5 +19,10 @@ export default [
         icon: ""
       }
     ]
+  },
+  {
+    name: "图表示例",
+    icon: "",
+    path: "/echartsDemo"
   }
 ];

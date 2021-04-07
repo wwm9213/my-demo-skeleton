@@ -6,12 +6,14 @@ import Antd, { message } from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
 import "@/styles/global.scss";
 
+import echarts from "./plugins/eCharts";
 import Directives from "./directive";
 
 Vue.prototype.$message = message;
+Vue.prototype.$echarts = echarts;
 Vue.config.productionTip = false;
 
-window.onload = () => router.push("/");
+// window.onload = () => router.push("/");
 
 Vue.use(Directives);
 Vue.use(Antd);

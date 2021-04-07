@@ -17,13 +17,19 @@ const routerList = {
       path: "/chatRoom",
       name: "ChatRoom",
       component: () =>
-        import(/* webpackChunkName: "about" */ "../views/About/ChatRoom")
+        import(/* webpackChunkName: "聊天室" */ "../views/About/ChatRoom")
     },
     {
       path: "/directive",
       name: "Directive",
       component: () =>
-        import(/* webpackChunkName: "about" */ "../views/About/Directive")
+        import(/* webpackChunkName: "自定义指令" */ "../views/About/Directive")
+    },
+    {
+      path: "/echartsDemo",
+      name: "EchartsDemo",
+      component: () =>
+        import(/* webpackChunkName: "echarts demo" */ "../views/Echarts")
     }
   ]
 };
