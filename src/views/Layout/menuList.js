@@ -22,6 +22,11 @@ export default [
         path: '/directive',
         name: '自定义指令',
         icon: 'tool'
+      },
+      {
+        path: '/ToDoList',
+        name: 'ToDoList',
+        icon: 'snippets'
       }
     ]
   }

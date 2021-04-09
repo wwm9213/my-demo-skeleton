@@ -18,14 +18,19 @@ const routerList = {
       component: () => import(/* webpackChunkName: "聊天室" */ '../views/About/ChatRoom')
     },
     {
+      path: '/echartsDemo',
+      name: 'EchartsDemo',
+      component: () => import(/* webpackChunkName: "echarts demo" */ '../views/Echarts')
+    },
+    {
       path: '/directive',
       name: 'Directive',
       component: () => import(/* webpackChunkName: "自定义指令" */ '../views/About/Directive')
     },
     {
-      path: '/echartsDemo',
-      name: 'EchartsDemo',
-      component: () => import(/* webpackChunkName: "echarts demo" */ '../views/Echarts')
+      path: '/ToDoList',
+      name: 'toDoList',
+      component: () => import(/* webpackChunkName: "ToDoList" */ '../views/About/ToDoList')
     }
   ]
 };
