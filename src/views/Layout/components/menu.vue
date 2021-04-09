@@ -1,17 +1,25 @@
 <template>
   <!--  -->
-  <a-menu mode="inline" :default-selected-keys="['1']" theme="dark">
+  <a-menu
+    mode="inline"
+    :default-selected-keys="['1']"
+    theme="dark"
+    :inline-collapsed="collapsed"
+  >
     <template v-for="menu in menuList">
       <!-- 含有二级菜单 -->
       <template v-if="menu.children && menu.children.length > 0">
         <a-sub-menu :key="menu.name">
           <span slot="title">
-            <span :class="['iconfont', menu.icon]" />{{ menu.name }}
+            <!-- <span :class="['iconfont', menu.icon]" /> -->
+            <a-icon :type="menu.icon" />
+            <span> {{ menu.name }}</span>
           </span>
 
           <a-menu-item v-for="subMenu in menu.children" :key="subMenu.name">
             <router-link :to="subMenu.path">
-              {{ subMenu.name }}
+              <a-icon :type="subMenu.icon" />
+              <span> {{ subMenu.name }}</span>
             </router-link>
           </a-menu-item>
         </a-sub-menu>
@@ -21,15 +29,22 @@
         <a-menu-item :key="menu.name">
           <router-link :to="menu.path">
             <div
-              style="width: 100%;display:flex;justify-content: space-between;align-items:center"
+              style="
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
             >
               <span>
-                <span :class="['iconfont', menu.icon]" />{{ menu.name }}
+                <!-- <span :class="['iconfont', menu.icon]" /> -->
+                <a-icon :type="menu.icon" />
+                <span>{{ menu.name }}</span>
               </span>
               <a-icon
                 v-if="!collapsed"
                 type="right"
-                style="position:relative;left:11px"
+                style="position: relative; left: 11px"
               ></a-icon>
             </div>
           </router-link>

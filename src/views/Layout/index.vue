@@ -3,15 +3,15 @@
   <div class="layout">
     <a-layout id="components-layout-demo-custom-trigger">
       <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
-        <div class="logo" />
+        <div class="logo">王清桓</div>
         <Menu :collapsed="collapsed" />
       </a-layout-sider>
       <a-layout>
-        <a-layout-header style="background: #fff; padding: 0; display:flex">
+        <a-layout-header style="background: #fff; padding: 0; display: flex">
           <a-icon
             class="trigger"
             :type="collapsed ? 'menu-unfold' : 'menu-fold'"
-            @click="() => (collapsed = !collapsed)"
+            @click="toggleCollapsed"
           />
           <Header />
         </a-layout-header>
@@ -20,11 +20,11 @@
             margin: '20px 15px',
             padding: '20px',
             background: '#fff',
-            minHeight: '280px'
+            minHeight: '280px',
           }"
           v-waterMarker="{
             text: '王清桓',
-            textColor: 'rgba(180, 180, 180, 0.4)'
+            textColor: 'rgba(180, 180, 180, 0.4)',
           }"
         >
           <router-view />
@@ -37,13 +37,34 @@
 import Menu from "./components/menu";
 import Header from "./components/header";
 export default {
-  components: { Menu, Header },
+  components: {
+    Menu,
+    Header
+  },
   data() {
     return {
-      collapsed: false
+      collapsed:
+        window.sessionStorage.getItem("collapsed") === "true" ? "true" : "false"
     };
   },
-  methods: {}
+  watch: {
+    collapsed() {
+      this.getCollapsed();
+    }
+  },
+  created() {
+    this.getCollapsed();
+  },
+  methods: {
+    getCollapsed() {
+      if (this.collapsed === "true") this.collapsed = true;
+      if (this.collapsed === "false") this.collapsed = false;
+    },
+    toggleCollapsed() {
+      this.collapsed = !this.collapsed;
+      window.sessionStorage.setItem("collapsed", this.collapsed);
+    }
+  }
 };
 </script>
 <style scoped lang="scss">
@@ -71,6 +92,10 @@ export default {
       height: 32px;
       background: rgba(255, 255, 255, 0.2);
       margin: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
     }
   }
 }

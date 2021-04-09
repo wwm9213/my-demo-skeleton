@@ -1,5 +1,6 @@
 import { Promise } from "core-js";
 
+// 生成唯一的uuid
 export const createUUID = () => {
   var d = new Date().getTime();
   if (window.performance && typeof window.performance.now === "function") {
@@ -15,6 +16,7 @@ export const createUUID = () => {
   return uuid;
 };
 
+// 存储token
 export const storage = {
   get() {
     return (
