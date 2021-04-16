@@ -80,9 +80,7 @@
               <template slot="title">
                 <span>不能发送空白消息</span>
               </template>
-              <a-button type="primary" @click="send">
-                发送
-              </a-button>
+              <a-button type="primary" @click="send"> 发送 </a-button>
             </a-tooltip>
           </a-button-group>
         </div>
@@ -106,6 +104,8 @@
 import moment from "moment";
 import { storage } from "@/utils";
 import * as TYPE from "./types";
+import WsConfig from "./WsConfig";
+const WsConf = new WsConfig("ws://localhost:8000");
 export default {
   data() {
     return {
@@ -143,11 +143,11 @@ export default {
 
   methods: {
     getSocket() {
-      const ws = new WebSocket("ws://localhost:8000");
-      this.ws = ws;
+      this.ws = WsConf.ws;
+      const ws = WsConf.ws;
 
       // 用户进入房间
-      ws.addEventListener("open", () => {
+      WsConf.onopen(() => {
         this.badgeStatus = "success";
 
         const msgInfo = {
@@ -161,15 +161,18 @@ export default {
       });
 
       // 连接出现错误
-      ws.addEventListener("error", e => {
+      WsConf.onerror(() => {
         console.log("error", e);
         this.badgeStatus = "error";
       });
 
       // 收到服务端发来的信息
-      ws.addEventListener("message", e => {
-        const data = JSON.parse(e.data);
+      WsConf.onmessage(e => {
+        let data = JSON.parse(e.data);
         this.msgList.push(data);
+        this.msgList = this.msgList.filter(
+          el => el.type !== TYPE.TYPE_HEART_CHECK
+        );
         this.msgList = this.msgList.map(el => ({
           ...el,
           status: this.formatStatus(el)
@@ -179,7 +182,7 @@ export default {
       });
 
       // 用户连开了房间
-      ws.addEventListener("close", e => {
+      WsConf.onclose(e => {
         console.log("close", e);
         this.badgeStatus = "default";
       });
@@ -278,8 +281,6 @@ export default {
 .wrap {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
   position: relative;
   overflow: hidden;
 
@@ -316,10 +317,10 @@ export default {
     }
   }
   .wrap-content {
-    flex: 1;
+    height: calc(100% - 50px);
     .wrap-content-message-area {
       width: 100%;
-      height: 80%;
+      height: calc(100% - 20%);
       background: #f5f5f5;
       overflow-y: auto;
       padding: 20px;
