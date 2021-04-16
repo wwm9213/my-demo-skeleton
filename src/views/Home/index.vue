@@ -1,14 +1,22 @@
+<!--
+ * @Date: 2021-04-09 11:06:25
+ * @Author: wwm
+ * @LastEditTime: 2021-04-16 15:34:56
+ * @LastEditors: wwm
+ * @Description: ...
+-->
 <template>
-  <div class="home"></div>
+  <div class="home" ref="home"></div>
 </template>
 
 <script>
 export default {
-  name: "Home",
+  name: 'Home',
   data() {
     return {};
   },
   created() {},
+  mounted() {},
   methods: {}
 };
 </script>

@@ -1,3 +1,10 @@
+/*
+ * @Date: 2021-04-09 11:06:25
+ * @Author: wwm
+ * @LastEditTime: 2021-04-16 15:36:53
+ * @LastEditors: wwm
+ * @Description: ...
+ */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import { storage } from '@/utils';
@@ -15,7 +22,7 @@ const routerList = {
     {
       path: '/chatRoom',
       name: 'ChatRoom',
-      component: () => import(/* webpackChunkName: "聊天室" */ '../views/About/ChatRoom')
+      component: () => import(/* webpackChunkName: "聊天室" */ '../views/ChatRoom')
     },
     {
       path: '/echartsDemo',
