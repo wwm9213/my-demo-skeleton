@@ -4,7 +4,7 @@ class WsConfig {
     constructor(wsUrl) {
         this.wsUrl = wsUrl
         this.ws = null
-        this.lockReconnect = false;//避免重复连接
+        this.lockReconnect = false; //避免重复连接
         this.timeout = 3000 //每隔三秒发送心跳
         this.num = 3  //3次心跳均未响应重连
         this.timeoutObj = null
@@ -75,10 +75,11 @@ class WsConfig {
         this.lockReconnect = true;
         //没连接上会一直重连，设置延迟避免请求过多
         let tt = null
+        const _this = this;
         tt && clearTimeout(tt);
         tt = setTimeout(function () {
-            this.createWs();
-            this.lockReconnect = false;
+            _this.createWs();
+            _this.lockReconnect = false;
         }, 4000);
     }
 
