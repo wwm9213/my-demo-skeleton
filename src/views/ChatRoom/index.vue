@@ -102,7 +102,7 @@
 </template>
 <script>
 import moment from "moment";
-import { storage } from "@/utils";
+import tokenInfo from "@/utils/tokenInfo";
 import * as TYPE from "./types";
 import WsConfig from "./WsConfig";
 const WsConf = new WsConfig("ws://localhost:8000");
@@ -151,10 +151,10 @@ export default {
         this.badgeStatus = "success";
 
         const msgInfo = {
-          msg: `${storage.get().userName}进入了房间`,
+          msg: `${tokenInfo.get().userName}进入了房间`,
           date: moment().format("HH:mm:ss"),
-          name: storage.get().userName,
-          id: storage.get().token,
+          name: tokenInfo.get().userName,
+          id: tokenInfo.get().token,
           type: TYPE.TYPE_ENTER
         };
         ws.send(JSON.stringify(msgInfo));
@@ -178,7 +178,7 @@ export default {
           status: this.formatStatus(el)
         }));
         this.input = "";
-        this.back();
+        data.type !== TYPE.TYPE_HEART_CHECK && this.back();
       });
 
       // 用户连开了房间
@@ -203,8 +203,8 @@ export default {
       const msgInfo = {
         msg: this.input,
         date: moment().format("HH:mm:ss"),
-        name: storage.get().userName,
-        id: storage.get().token,
+        name: tokenInfo.get().userName,
+        id: tokenInfo.get().token,
         type: TYPE.TYPE_MSG
       };
       this.ws.send(JSON.stringify(msgInfo));
@@ -248,7 +248,7 @@ export default {
     // 处理消息类型
     formatStatus(el) {
       let num = null;
-      const myToken = storage.get().token;
+      const myToken = tokenInfo.get().token;
       if (el.type === TYPE.TYPE_MSG && el.id === myToken) {
         // 我发送的消息
         num = 0;
@@ -265,10 +265,10 @@ export default {
 
   beforeRouteLeave(to, from, next) {
     const msgInfo = {
-      msg: `${storage.get().userName}离开了房间`,
+      msg: `${tokenInfo.get().userName}离开了房间`,
       date: moment().format("HH:mm:ss"),
-      name: storage.get().userName,
-      id: storage.get().token,
+      name: tokenInfo.get().userName,
+      id: tokenInfo.get().token,
       type: TYPE.TYPE_LEAVE
     };
     this.ws.send(JSON.stringify(msgInfo));

@@ -3,7 +3,9 @@
   <div class="layout">
     <a-layout id="components-layout-demo-custom-trigger">
       <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
-        <div class="logo">王清桓</div>
+        <div class="logo" @click="$route.path !== '/home' && $router.push('/')">
+          王清桓
+        </div>
         <Menu :collapsed="collapsed" />
       </a-layout-sider>
       <a-layout>
@@ -96,6 +98,7 @@ export default {
       justify-content: center;
       align-items: center;
       color: #fff;
+      cursor: pointer;
     }
   }
 }

@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-19 15:37:56
  * @Author: wwm
- * @LastEditTime: 2021-04-19 15:45:43
+ * @LastEditTime: 2021-04-19 16:02:47
  * @LastEditors: wwm
  * @Description: 封装存取token
  */
@@ -10,7 +10,7 @@ import Cookies from 'js-cookie'
 
 const tokenInfo = {
     get() {
-        return Cookies.get('tokenInfo') || false;
+        return Cookies.get('tokenInfo') && JSON.parse(Cookies.get('tokenInfo')) || false;
 
     },
     set(data) {
