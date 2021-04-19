@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-09 11:06:25
  * @Author: wwm
- * @LastEditTime: 2021-04-16 15:36:53
+ * @LastEditTime: 2021-04-19 15:20:19
  * @LastEditors: wwm
  * @Description: ...
  */
@@ -75,6 +75,8 @@ router.beforeEach((to, from, next) => {
     } else {
       next();
     }
+  } else if (to.path === '/login' && token) {
+    next('/');
   } else {
     next();
   }

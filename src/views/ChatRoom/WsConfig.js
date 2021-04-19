@@ -1,3 +1,10 @@
+/*
+ * @Date: 2021-04-16 15:50:06
+ * @Author: wwm
+ * @LastEditTime: 2021-04-19 10:04:19
+ * @LastEditors: wwm
+ * @Description: 心跳重连
+ */
 import * as TYPE from "./types";
 import moment from "moment";
 class WsConfig {

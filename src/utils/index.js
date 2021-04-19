@@ -6,7 +6,7 @@ export const createUUID = () => {
   if (window.performance && typeof window.performance.now === "function") {
     d += performance.now(); //use high-precision timer if available
   }
-  var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(
+  var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (
     c
   ) {
     var r = (d + Math.random() * 16) % 16 | 0;
@@ -20,17 +20,17 @@ export const createUUID = () => {
 export const storage = {
   get() {
     return (
-      (window.sessionStorage.getItem("tokenInfo") &&
-        JSON.parse(window.sessionStorage.getItem("tokenInfo"))) ||
+      (window.localStorage.getItem("tokenInfo") &&
+        JSON.parse(window.localStorage.getItem("tokenInfo"))) ||
       false
     );
   },
   set(data) {
-    window.sessionStorage.setItem("tokenInfo", JSON.stringify(data));
+    window.localStorage.setItem("tokenInfo", JSON.stringify(data));
   },
   del() {
     return new Promise(res => {
-      window.sessionStorage.removeItem("tokenInfo");
+      window.localStorage.removeItem("tokenInfo");
       res(true);
     });
   }
