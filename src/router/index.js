@@ -1,13 +1,13 @@
 /*
  * @Date: 2021-04-09 11:06:25
  * @Author: wwm
- * @LastEditTime: 2021-04-19 15:20:19
+ * @LastEditTime: 2021-04-19 15:49:17
  * @LastEditors: wwm
  * @Description: ...
  */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { storage } from '@/utils';
+import tokenInfo from "@/utils/tokenInfo";
 Vue.use(VueRouter);
 const routerList = {
   path: '/main',
@@ -67,7 +67,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const token = storage.get();
+  const token = tokenInfo.get();
 
   if (to.path !== '/login') {
     if (!token) {

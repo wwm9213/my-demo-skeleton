@@ -24,14 +24,18 @@
                       message: 'Please input your username!',
                       min: 5,
                       max: 11,
-                      whitespace: true
-                    }
-                  ]
-                }
+                      whitespace: true,
+                    },
+                  ],
+                },
               ]"
               placeholder="用户名/手机号"
             >
-              <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)" />
+              <a-icon
+                slot="prefix"
+                type="user"
+                style="color: rgba(0, 0, 0, 0.25)"
+              />
             </a-input>
           </a-form-item>
           <a-form-item
@@ -48,15 +52,19 @@
                       message: 'Please input your Password!',
                       min: 5,
                       max: 12,
-                      whitespace: true
-                    }
-                  ]
-                }
+                      whitespace: true,
+                    },
+                  ],
+                },
               ]"
               type="password"
               placeholder="密码"
             >
-              <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
+              <a-icon
+                slot="prefix"
+                type="lock"
+                style="color: rgba(0, 0, 0, 0.25)"
+              />
             </a-input>
           </a-form-item>
           <a-form-item>
@@ -75,7 +83,8 @@
   </div>
 </template>
 <script>
-import { storage, createUUID } from "@/utils";
+import { createUUID } from "@/utils";
+import tokenInfo from "@/utils/tokenInfo";
 import md5 from "js-md5";
 function hasErrors(fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field]);
@@ -114,7 +123,7 @@ export default {
             token: createUUID()
           };
 
-          storage.set(info);
+          tokenInfo.set(info);
           this.$router.push("/");
           this.$message.success(`欢迎回来，${values.userName}`);
         }

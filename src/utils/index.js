@@ -1,5 +1,3 @@
-import { Promise } from "core-js";
-
 // 生成唯一的uuid
 export const createUUID = () => {
   var d = new Date().getTime();
@@ -14,24 +12,4 @@ export const createUUID = () => {
     return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
   });
   return uuid;
-};
-
-// 存储token
-export const storage = {
-  get() {
-    return (
-      (window.localStorage.getItem("tokenInfo") &&
-        JSON.parse(window.localStorage.getItem("tokenInfo"))) ||
-      false
-    );
-  },
-  set(data) {
-    window.localStorage.setItem("tokenInfo", JSON.stringify(data));
-  },
-  del() {
-    return new Promise(res => {
-      window.localStorage.removeItem("tokenInfo");
-      res(true);
-    });
-  }
 };

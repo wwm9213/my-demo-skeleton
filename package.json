@@ -23,6 +23,7 @@
     "ant-design-vue": "^1.7.2",
     "echarts": "^5.0.2",
     "image-webpack-loader": "^7.0.1",
+    "js-cookie": "^2.2.1",
     "js-md5": "^0.7.3",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",

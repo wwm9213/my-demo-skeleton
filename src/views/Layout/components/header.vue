@@ -5,10 +5,10 @@
       <a-col :span="12">
         <div class="menu-header-date">现在是北京时间{{ date }}</div>
       </a-col>
-      <a-col :span="12" style="text-align:right">
+      <a-col :span="12" style="text-align: right">
         <a-dropdown placement="bottomCenter">
-          <a class="ant-dropdown-link" @click="e => e.preventDefault()">
-            <span style="margin-right:10px">{{ userName }}</span>
+          <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
+            <span style="margin-right: 10px">{{ userName }}</span>
             <a-avatar shape="square" icon="user" />
           </a>
           <a-menu slot="overlay">
@@ -26,7 +26,7 @@
 </template>
 <script>
 import moment from "moment";
-import { storage } from "@/utils";
+import tokenInfo from "@/utils/tokenInfo";
 export default {
   data() {
     return {
@@ -37,7 +37,7 @@ export default {
   },
   created() {
     this.getDate();
-    this.userName = storage.get().userName;
+    this.userName = tokenInfo.get().userName;
   },
   methods: {
     getDate() {
@@ -53,7 +53,7 @@ export default {
         title: "提示",
         content: "确定退出吗？",
         onOk() {
-          storage.del().then(res => {
+          tokenInfo.del().then(res => {
             res && _this.$router.push("/login");
           });
         }
