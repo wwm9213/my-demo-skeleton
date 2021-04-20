@@ -2,6 +2,7 @@
   <!--  -->
   <a-menu
     mode="inline"
+    :default-selectedKeys="['/home']"
     :selectedKeys="pathKeys"
     theme="dark"
     :inline-collapsed="collapsed"
@@ -59,6 +60,9 @@ export default {
   props: ["collapsed"],
   data() {
     return { menuList, pathKeys: ["/home"] };
+  },
+  created() {
+    this.pathKeys = [this.$route.path];
   },
   watch: {
     ["$route"](val) {

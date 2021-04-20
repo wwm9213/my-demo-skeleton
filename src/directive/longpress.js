@@ -13,7 +13,8 @@
  */
 
 const longpress = {
-  bind: function(el, binding) {
+  bind: function (el, binding) {
+
     if (typeof binding.value !== "function") {
       throw "callback must be a function";
     }
@@ -27,11 +28,10 @@ const longpress = {
       if (e.type === "click" && e.button !== 0) {
         return;
       }
-      if (pressTimer === null) {
-        pressTimer = setTimeout(() => {
-          handler();
-        }, timeNum);
-      }
+
+      pressTimer = setTimeout(() => {
+        handler();
+      }, timeNum);
     };
     // 取消计时器
     let cancel = () => {

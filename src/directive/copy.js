@@ -20,17 +20,19 @@ function hint(flag, el, cb) {
 }
 
 const copy = {
-  bind(el, { value, arg }) {
-    let fnFlag = false;
-    el.$value = value;
+  bind(el, binding) {
+    const { value, arg } = binding
+
+    let fnFlag = false,
+      $value = value;
 
     if (value && typeof value === "function") {
       fnFlag = true;
-      el.$value = arg;
+      $value = arg;
     }
 
     el.handler = () => {
-      if (!el.$value) {
+      if (!$value) {
         // 值为空的时候，给出提示。可根据项目UI仔细设计
         hint(fnFlag, { id: 0, msg: "无复制内容" }, value);
         return;
@@ -50,7 +52,7 @@ const copy = {
       const result = document.execCommand("Copy");
       if (result) {
         // 可根据项目UI仔细设计
-        hint(fnFlag, { id: 1, msg: "复制成功", text: el.$value }, value);
+        hint(fnFlag, { id: 1, msg: "复制成功", text: $value }, value);
       }
       document.body.removeChild(textarea);
     };
