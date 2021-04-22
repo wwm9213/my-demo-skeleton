@@ -1,7 +1,7 @@
 <!--
  * @Date: 2021-04-09 11:06:25
  * @Author: wwm
- * @LastEditTime: 2021-04-19 15:09:05
+ * @LastEditTime: 2021-04-22 16:02:27
  * @LastEditors: wwm
  * @Description: ...
 -->
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: "Home",
   data() {
     return {};
   },

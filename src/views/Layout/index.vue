@@ -1,10 +1,10 @@
 <template>
   <!--  -->
   <div class="layout">
-    <a-layout id="components-layout-demo-custom-trigger">
+    <a-layout class="components-layout-demo-custom-trigger">
       <a-layout-sider v-model="collapsed" :trigger="null" collapsible>
         <div class="logo" @click="$route.path !== '/home' && $router.push('/')">
-          王清桓
+          离心力
         </div>
         <Menu :collapsed="collapsed" />
       </a-layout-sider>
@@ -17,20 +17,23 @@
           />
           <Header />
         </a-layout-header>
-        <a-layout-content
-          :style="{
-            margin: '20px 15px',
-            padding: '20px',
-            background: '#fff',
-            minHeight: '280px',
-          }"
-          v-waterMarker="{
-            text: '王清桓',
-            textColor: 'rgba(180, 180, 180, 0.4)',
-          }"
-        >
-          <router-view />
-        </a-layout-content>
+        <transition name="slide-fade">
+          <a-layout-content
+            v-if="show"
+            :style="{
+              margin: '20px 15px',
+              padding: '20px',
+              background: '#fff',
+              height: '100%',
+            }"
+            v-waterMarker="{
+              text: '离心力',
+              textColor: 'rgba(180, 180, 180, 0.4)',
+            }"
+          >
+            <router-view />
+          </a-layout-content>
+        </transition>
       </a-layout>
     </a-layout>
   </div>
@@ -46,12 +49,22 @@ export default {
   data() {
     return {
       collapsed:
-        window.sessionStorage.getItem("collapsed") === "true" ? "true" : "false"
+        window.sessionStorage.getItem("collapsed") === "true"
+          ? "true"
+          : "false",
+      show: true
     };
   },
   watch: {
     collapsed() {
       this.getCollapsed();
+    },
+    $route(val) {
+      this.show = false;
+
+      setTimeout(() => {
+        this.show = true;
+      }, 200);
     }
   },
   created() {
@@ -74,7 +87,7 @@ export default {
   width: 100%;
   height: 100%;
 
-  #components-layout-demo-custom-trigger {
+  .components-layout-demo-custom-trigger {
     width: 100%;
     height: 100%;
 
@@ -99,6 +112,20 @@ export default {
       align-items: center;
       color: #fff;
       cursor: pointer;
+    }
+
+    .slide-fade-enter-active {
+      transition: all 0.5s ease;
+    }
+    .slide-fade-leave-active {
+      transition: all 0.2s;
+    }
+    .slide-fade-enter {
+      transform: translateX(50px);
+      opacity: 0;
+    }
+    .slide-fade-leave-to {
+      opacity: 0;
     }
   }
 }
