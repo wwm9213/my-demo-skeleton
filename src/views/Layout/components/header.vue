@@ -3,7 +3,10 @@
   <div class="menu-header">
     <a-row>
       <a-col :span="12">
-        <div class="menu-header-date">现在是北京时间{{ date }}</div>
+        <div class="menu-header-date">
+          现在是北京时间{{ date }}
+         
+        </div>
       </a-col>
       <a-col :span="12" style="text-align: right">
         <a-dropdown placement="bottomCenter">

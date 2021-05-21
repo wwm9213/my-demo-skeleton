@@ -21,12 +21,9 @@ const echarts = {
 const resizeEChartSize = (() => {
   let windowResizeTimer = null;
 
-  return function() {
+  return function () {
     windowResizeTimer && clearTimeout(windowResizeTimer);
     windowResizeTimer = setTimeout(() => {
-      //   _.map(window.$echartInstance, i => {
-      //     i.resize && i.resize();
-      //   });
       const obj = window.$echartInstance;
       for (const i in obj) {
         obj[i].resize && obj[i].resize();
