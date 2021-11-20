@@ -1,121 +1,51 @@
 <!--
  * @Date: 2021-04-09 11:06:25
  * @Author: wwm
- * @LastEditTime: 2021-05-11 18:23:58
+ * @LastEditTime: 2021-11-20 16:10:39
  * @LastEditors: wwm
  * @Description: ...
 -->
 <template>
-  <div class="home" ref="home">
-    <div class="content">
-      <div class="content-left">
-        <div
-          class="content-left-item"
-          v-for="el in list"
-          :key="el.id"
-          @click="getRight(el)"
-        >
-          <span :style="{ color: el.index === defaultId ? '#fff' : '' }">{{
-            el.name
-          }}</span>
-          <div class="content-left-item-icon" v-if="el.num">{{ el.num }}</div>
-        </div>
-      </div>
-      <div class="content-right">
-        <div
-          class="content-right-item"
-          v-for="item in list[defaultId].children"
-          :key="item.id"
-          @click="selectItem(list[defaultId].children, item)"
-          :style="{ color: item.flag ? 'red' : '' }"
-        >
-          {{ item.name }}
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="home" ref="home"></div>
 </template>
 
 <script>
 export default {
   name: "Home",
   data() {
-    return {
-      list: [
-        {
-          name: "北京",
-          id: "1",
-          num: 0,
-          children: [
-            {
-              name: "东城区",
-              id: "1-1",
-              flag: false
-            },
-            {
-              name: "西城区",
-              id: "1-2",
-              flag: false
-            }
-          ]
-        },
-        {
-          name: "上海",
-          id: 2,
-          num: 0,
-          children: [
-            {
-              name: "黄浦区",
-              id: "2-1",
-              flag: false
-            },
-            {
-              name: "徐汇区",
-              id: "2-2",
-              flag: false
-            }
-          ]
-        }
-      ],
-      defaultId: 0
-    };
+    return {};
   },
   created() {
-    this.list = this.list.map((el, index) => ({ ...el, index }));
-
-    function josephRing(n, m) {
-      if (n <= 1 || m < 1) {
-        console.log(
-          "you can't play Joseph's game. n must be bigger than 1, m must be bigger than 0"
-        );
-        return;
-      }
-
-      let r = 0;
-      for (let i = 2; i <= n; i++) {
-        //会先计算 n = 2 时的结果，最终得到的 r 就是胜利者
-        r = (r + m) % i;
-      }
-      console.log(r + 1 + " is the winner.");
+    const fn = ["a", "b", "c", "d"];
+    for (let index = 0; index < fn.length; index++) {
+      const el = fn[index];
+      this[el](
+        () => {
+          console.log("第一个回调函数", index, el);
+        },
+        () => {
+          console.log("第二个回调函数", index, el);
+        }
+      );
     }
-
-    let start = new Date().getTime();
-    josephRing(10, 1);
-    let end = new Date().getTime();
-    console.log("====" + (end - start) + "====");
   },
   mounted() {},
   methods: {
-    getRight(el) {
-      this.defaultId = el.index;
+    a(cb_1, cb_2) {
+      cb_1 && cb_1();
+      cb_2 && cb_2();
     },
-
-    selectItem(children, item) {
-      item.flag = !item.flag;
-
-      let num = children.filter(el => el.flag).length;
-
-      this.list[this.defaultId].num = num;
+    b(cb_1, cb_2) {
+      cb_1 && cb_1();
+      cb_2 && cb_2();
+    },
+    c(cb_1, cb_2) {
+      cb_1 && cb_1();
+      cb_2 && cb_2();
+    },
+    d(cb_1, cb_2) {
+      cb_1 && cb_1();
+      cb_2 && cb_2();
     }
   }
 };

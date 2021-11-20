@@ -17,23 +17,21 @@
           />
           <Header />
         </a-layout-header>
-        <transition name="slide-fade">
-          <a-layout-content
-            v-if="show"
-            :style="{
-              margin: '20px 15px',
-              padding: '20px',
-              background: '#fff',
-              height: '100%',
-            }"
-            v-waterMarker="{
-              text: '离心力',
-              textColor: 'rgba(180, 180, 180, 0.4)',
-            }"
-          >
-            <router-view />
-          </a-layout-content>
-        </transition>
+
+        <a-layout-content
+          :style="{
+            margin: '20px 15px',
+            padding: '20px',
+            background: '#fff',
+            height: '100%'
+          }"
+          v-waterMarker="{
+            text: '离心力',
+            textColor: 'rgba(180, 180, 180, 0.4)'
+          }"
+        >
+          <router-view />
+        </a-layout-content>
       </a-layout>
     </a-layout>
   </div>
@@ -49,22 +47,12 @@ export default {
   data() {
     return {
       collapsed:
-        window.sessionStorage.getItem("collapsed") === "true"
-          ? "true"
-          : "false",
-      show: true
+        window.sessionStorage.getItem("collapsed") === "true" ? "true" : "false"
     };
   },
   watch: {
     collapsed() {
       this.getCollapsed();
-    },
-    $route(val) {
-      this.show = false;
-
-      setTimeout(() => {
-        this.show = true;
-      }, 200);
     }
   },
   created() {

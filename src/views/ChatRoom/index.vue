@@ -105,7 +105,7 @@ import moment from "moment";
 import tokenInfo from "@/utils/tokenInfo";
 import * as TYPE from "./types";
 import WsConfig from "./WsConfig";
-const WsConf = new WsConfig("ws://localhost:8000");
+
 export default {
   data() {
     return {
@@ -143,6 +143,7 @@ export default {
 
   methods: {
     getSocket() {
+      const WsConf = new WsConfig("ws://localhost:8000");
       this.ws = WsConf.ws;
       const ws = WsConf.ws;
 
@@ -177,7 +178,7 @@ export default {
           ...el,
           status: this.formatStatus(el)
         }));
-        this.input = "";
+        // this.input = "";
         data.type !== TYPE.TYPE_HEART_CHECK && this.back();
       });
 
@@ -189,7 +190,7 @@ export default {
     },
 
     send() {
-      this.getFocus();
+      // this.getFocus();
       if (!this.input) {
         if (this.timer) {
           this.tooltipFlag = true;
@@ -208,6 +209,7 @@ export default {
         type: TYPE.TYPE_MSG
       };
       this.ws.send(JSON.stringify(msgInfo));
+      this.clearInput();
     },
 
     back() {
@@ -272,6 +274,7 @@ export default {
       type: TYPE.TYPE_LEAVE
     };
     this.ws.send(JSON.stringify(msgInfo));
+    this.ws.close();
 
     next();
   }

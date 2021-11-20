@@ -1,6 +1,4 @@
-import Vue from "vue";
 import router from "../router";
-import _ from "lodash";
 import "./walden";
 const _echarts = require("echarts/lib/echarts");
 
